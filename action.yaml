@@ -1,0 +1,8 @@
+name: Dependabot composer diff
+description: Posts a comment with a diff when Composer dependencies are updated
+outputs:
+  diff:
+    description: 'The generated diff'
+runs:
+  using: docker
+  image: Dockerfile
