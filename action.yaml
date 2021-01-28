@@ -1,8 +1,19 @@
 name: Dependabot composer diff
 description: Posts a comment with a diff when Composer dependencies are updated
+inputs:
+  token:
+    description: GitHub token to post the comment with.
+    required: false
+    default: ${{ github.token }}
 outputs:
   diff:
-    description: 'The generated diff'
+    description: The generated diff
 runs:
   using: docker
   image: Dockerfile
+  args:
+  - ${{ github.repository }}
+  - ${{ github.event.number }}
+  - ${{ github.base_ref }}
+  - ${{ github.head_ref }}
+  - ${{ inputs.token }}
