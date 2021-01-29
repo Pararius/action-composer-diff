@@ -1,6 +1,8 @@
 #!/bin/bash -l
 
-DIFF="$(composer-lock-diff --from=HEAD --to="${GITHUB_SHA}" --md)"
+git fetch --no-tags --prune --depth=1 origin "${GITHUB_BASE_REF}"
+
+DIFF="$(composer-lock-diff --from="${GITHUB_BASE_REF}" --to="${GITHUB_SHA}" --md)"
 
 outputDiff="${DIFF}"
 outputDiff="${outputDiff//'%'/'%25'}"
