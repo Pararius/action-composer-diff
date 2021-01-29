@@ -5,31 +5,12 @@ inputs:
     required: true
     default: ${{ github.token }}
     description: GitHub token to post the comment with
-  repository:
-    required: true
-    default: ${{ github.repository }}
-    description: The repository to post the comment to
-  event_number:
-    required: true
-    default: ${{ github.event.number }}
-    description: The pull request number to post the comment in
-  from:
-    required: true
-    default: ${{ github.base_ref }}
-    description: Git ref to compare the lockfile from
-  to:
-    required: true
-    default: ${{ github.head_ref }}
-    description: Git ref to compare the lockfile to
 outputs:
   diff:
     description: The generated diff
 runs:
   using: docker
   image: Dockerfile
-  args:
-  - ${{ inputs.repository }}
-  - ${{ inputs.event_number }}
-  - ${{ inputs.from }}
-  - ${{ inputs.to }}
-  - ${{ inputs.token }}
+  env:
+    GITHUB_TOKEN: ${{ inputs.token }}
+    PULL_REQUEST: ${{ github.event.number }}

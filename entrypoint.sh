@@ -1,12 +1,6 @@
 #!/bin/bash -l
 
-REPO="$1"
-PR="$2"
-FROM="$3"
-TO="$4"
-TOKEN="$5"
-
-DIFF="$(composer-lock-diff --from="$FROM" --to="$TO" --md)"
+DIFF="$(composer-lock-diff --from="${GITHUB_BASE_REF}" --to="${GITHUB_HEAD_REF}" --md)"
 
 outputDiff="${DIFF}"
 outputDiff="${outputDiff//'%'/'%25'}"
@@ -22,9 +16,9 @@ fi
 
 BODY="$(printf 'The following Composer dependencies have been changed:\n\n%s' "${DIFF}" | jq -aRs '.')"
 
-curl -q \
+curl -LSs \
   -X POST \
-  -H "Authorization: token ${TOKEN}" \
+  -H "Authorization: token ${GITHUB_TOKEN}" \
   -H "Accept: application/vnd.github.v3+json" \
-  "https://api.github.com/repos/${REPO}/issues/${PR}/comments" \
+  "${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/issues/${PULL_REQUEST}/comments" \
   -d "{\"body\":${BODY}}"
