@@ -5,6 +5,10 @@ inputs:
     required: true
     default: ${{ github.token }}
     description: GitHub token to post the comment with
+  pull_request:
+    required: true
+    default: ${{ github.event.number }}
+    description: The pull request to post the comment to. This defaults to the current PR and should not be changed.
 outputs:
   diff:
     description: The generated diff
@@ -13,4 +17,4 @@ runs:
   image: Dockerfile
   env:
     GITHUB_TOKEN: ${{ inputs.token }}
-    PULL_REQUEST: ${{ github.event.number }}
+    PULL_REQUEST: ${{ inputs.pull_request }}
