@@ -1,6 +1,6 @@
 #!/bin/bash -l
 
-DIFF="$(composer-lock-diff --from="${GITHUB_BASE_REF}" --to="${GITHUB_HEAD_REF}" --md)"
+DIFF="$(composer-lock-diff --from=HEAD --to="${GITHUB_SHA}" --md)"
 
 outputDiff="${DIFF}"
 outputDiff="${outputDiff//'%'/'%25'}"
