@@ -1,7 +1,7 @@
 name: Dependabot composer diff
 description: Posts a comment with a diff when Composer dependencies are updated
 inputs:
-  path_prefix:
+  base_path:
     required: true
     default: ./
     description: Path where to find the composer.lock file.
@@ -20,6 +20,6 @@ runs:
   using: docker
   image: Dockerfile
   env:
+    BASE_PATH: ${{ inputs.base_path }}
     GITHUB_TOKEN: ${{ inputs.token }}
-    PATH_PREFIX: ${{ inputs.path_prefix }}
     PULL_REQUEST: ${{ inputs.pull_request }}
