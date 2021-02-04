@@ -2,7 +2,7 @@
 
 git fetch --no-tags --prune --depth=1 origin "${GITHUB_BASE_REF}"
 
-DIFF="$(composer-lock-diff --from="origin/${GITHUB_BASE_REF}" --to="${GITHUB_SHA}" --md)"
+DIFF="$(composer-lock-diff --path="${BASE_PATH}" --from="origin/${GITHUB_BASE_REF}" --to="${GITHUB_SHA}" --md)"
 
 outputDiff="${DIFF}"
 outputDiff="${outputDiff//'%'/'%25'}"
