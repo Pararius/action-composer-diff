@@ -1,14 +1,18 @@
 name: Dependabot composer diff
 description: Posts a comment with a diff when Composer dependencies are updated
 inputs:
-  token:
+  path_prefix:
     required: true
-    default: ${{ github.token }}
-    description: GitHub token to post the comment with
+    default: ./
+    description: Path where to find the composer.lock file.
   pull_request:
     required: true
     default: ${{ github.event.number }}
     description: The pull request to post the comment to. This defaults to the current PR and should not be changed.
+  token:
+    required: true
+    default: ${{ github.token }}
+    description: GitHub token to post the comment with.
 outputs:
   diff:
     description: The generated diff
@@ -17,4 +21,5 @@ runs:
   image: Dockerfile
   env:
     GITHUB_TOKEN: ${{ inputs.token }}
+    PATH_PREFIX: ${{ inputs.path_prefix }}
     PULL_REQUEST: ${{ inputs.pull_request }}
