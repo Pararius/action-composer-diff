@@ -1,5 +1,6 @@
 #!/bin/bash -l
 
+git config --global --add safe.directory "${GITHUB_WORKSPACE}"
 git fetch --no-tags --prune --depth=1 origin "${GITHUB_BASE_REF}"
 
 DIFF="$(composer-lock-diff --path="${BASE_PATH}" --from="origin/${GITHUB_BASE_REF}" --to="${GITHUB_SHA}" --md)"
