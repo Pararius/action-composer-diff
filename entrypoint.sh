@@ -10,7 +10,7 @@ outputDiff="${outputDiff//'%'/'%25'}"
 outputDiff="${outputDiff//$'\n'/'%0A'}"
 outputDiff="${outputDiff//$'\r'/'%0D'}"
 
-echo "::set-output name=diff::$outputDiff"
+echo "diff=$outputDiff" >> ${GITHUB_OUTPUT}
 
 if test -z "${DIFF}"; then
   echo "No changed dependencies"
